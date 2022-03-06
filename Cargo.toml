@@ -22,3 +22,5 @@ tower-http = { version = "0.2", features = ["fs", "trace"] }
 tower = "0.4"
 fastrand = "1.5"
 flate2 = "1.0"
+quicli = "0.4.0"
+structopt = "0.3.26"

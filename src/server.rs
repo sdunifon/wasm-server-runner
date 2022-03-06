@@ -16,6 +16,8 @@ fn generate_version() -> String {
 
 pub struct Options {
     pub title: String,
+    pub address: String,
+    pub port: u16,
 }
 
 pub async fn run_server(options: Options, output: WasmBindgenOutput) -> Result<()> {
@@ -43,8 +45,7 @@ pub async fn run_server(options: Options, output: WasmBindgenOutput) -> Result<(
         .fallback(serve_dir)
         .layer(middleware_stack);
 
-    let port = pick_port::pick_free_port(1334, 10).unwrap_or(1334);
-    let addr = SocketAddr::from(([127, 0, 0, 1], port));
+    let addr: SocketAddr = format!("{}:{}",options.address,options.port).parse().expect("Unable to parse socket address");
 
     tracing::info!("starting webserver at http://{}", addr);
     axum::Server::bind(&addr).serve(app.into_make_service()).await?;
