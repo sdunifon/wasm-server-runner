@@ -32,10 +32,11 @@ fn main() -> Result<(), anyhow::Error> {
 
     let options = Options { title, address: args.address, port: args.port };
 
-    let wasm_file = PathBuf::from(args.wasm_file);//.ok_or_else(|| anyhow!("wasm file not found"))?;
+    let wasm_file = PathBuf::from(args.wasm_file);
 
-    let is_wasm_file = wasm_file.extension().map_or(false, |e| e == "wasm");
-    ensure!(is_wasm_file, "expected to be run with a wasm target");
+    ensure!(wasm_file.exists(), "File: {:?} not found",wasm_file);
+
+    ensure!(wasm_file.extension().map_or(false, |e| e == "wasm"), "expected to be run with a wasm target");
 
     let output = wasm_bindgen::generate(&wasm_file)?;
 
