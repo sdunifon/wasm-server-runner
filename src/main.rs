@@ -14,9 +14,9 @@ mod wasm_bindgen;
 
 #[derive(Debug, StructOpt)]
 struct CliArgs {
-    #[structopt(long = "port", short = "p", default_value = "1334")]
+    #[structopt(long = "port", short = "p", default_value = "1334", env = "WASM_SERVER_RUNNER_PORT")]
     port: u16,
-    #[structopt(long = "address", short = "a", default_value = "127.0.0.1")]
+    #[structopt(long = "address", short = "a", default_value = "127.0.0.1", env = "WASM_SERVER_RUNNER_ADDRESS")]
     address: String,
     wasm_file: String,
 }
